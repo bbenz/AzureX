@@ -1,4 +1,4 @@
-package incidents;
+package incidents.configurations;
 
 import java.net.UnknownHostException;
 

@@ -1,4 +1,4 @@
-package incidents;
+package incidents.configurations;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
