@@ -1,18 +1,9 @@
 application:
   incidentApiUrl: ${INCIDENT_API_URL}
-  incidentResourcePath: ${INCIDENT_RESOURCE_PATH}
-  redisHost: ${REDISCACHE_HOSTNAME}
-  redisPort: ${REDISCACHE_PORT}
-  primaryKey: ${REDISCACHE_PRIMARY_KEY}
-  redisSslPort: ${REDISCACHE_SSLPORT}
 
-azure:
+image:
   storage:
-    account:
-      name: ${AZURE_STORAGE_ACCOUNT}
-      key: ${AZURE_STORAGE_ACCESS_KEY}
-      blobContainer: ${AZURE_STORAGE_BLOB_CONTAINER}
-      queue: ${AZURE_STORAGE_QUEUE}
+    storageLocation: ${IMAGE_STORAGE_LOCATION}
 
 logging:
   level: info
@@ -28,6 +19,7 @@ spring:
   profiles:
     active: default
 
+    
 server:
   port: 8080
 

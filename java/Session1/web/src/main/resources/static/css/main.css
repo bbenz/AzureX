@@ -1,7 +1,7 @@
 /*#region Global */
 
 html.home {
-    background: url(../images/street.jpg) no-repeat center center fixed;
+    background: url(../img/street.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -12,6 +12,9 @@ h1 {
     margin-bottom: 40px;
 }
 
+.btn {
+    margin-right: 5px;
+}
 
 /*#endregion*/
 
@@ -62,5 +65,25 @@ h1 {
     }
 }
 
+/*#endregion*/
 
+
+/*#region Dashboard */
+.dashboard a,
+.dashboard a:hover {
+    text-decoration: none;
+    color: #000;
+}
+
+.dashboard a:hover .panel-heading {
+    background-color: #ffa500;
+    transition: all .7s ease-in-out;
+}
+/*#endregion*/
+
+
+/*#region Detail */
+.detail th {
+    text-transform: capitalize;
+}
 /*#endregion*/

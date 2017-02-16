@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.4.1.RELEASE'
+		springBootVersion = '1.4.3.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -31,6 +31,10 @@ configurations {
 }
 
 dependencies {
+compile ('org.apache.httpcomponents:httpclient')
+compile ('org.apache.httpcomponents:httpcore')
+compile ('org.apache.httpcomponents:httpmime')
+compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-devtools')
@@ -42,9 +46,9 @@ dependencies {
 	//added in exercise 3 of modern-cloud-apps
 	compile('com.microsoft.azure:azure-storage:4.4.0')
 	compile('com.microsoft.azure:azure-svc-mgmt-storage:0.9.5')
-		
+	compile("org.springframework.boot:spring-boot-starter-hateoas")
 	/*
-	compile('org.springframework.boot:spring-boot-starter-web')
+	
 	compile('com.microsoft.azure:adal4j:1.1.1')
 	compile('com.nimbusds:oauth2-oidc-sdk:4.5')
     compile('org.json:json:20090211')

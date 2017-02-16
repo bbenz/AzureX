@@ -1,6 +1,6 @@
 package devCamp.WebApp.Controllers;
 
-import devCamp.WebApp.services.AzureStorageService;
+import devCamp.WebApp.services.ImageStorageService;
 import devCamp.WebApp.services.IncidentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,16 +27,18 @@ import java.util.concurrent.CompletableFuture;
 public class IncidentController {
 	private static final Logger LOG = LoggerFactory.getLogger(IncidentController.class);
 
+	@Autowired
+    private IncidentService incidentService;
+	
+	@Autowired
+	private ImageStorageService storageService;
 
-
-	@GetMapping("/details")
-	public String Details( @RequestParam(value="Id", required=false, defaultValue="") String id,Model model) {
+	@GetMapping("/details/{id}")
+	public String Details( @PathVariable("id") String id, Model model) {
 		//get the incident from the REST service
-	    /*
-		IncidentBean incident = service.GetById(id);    	
+		IncidentBean incident = incidentService.getById(id);    	
 		//plug incident into the Model
 		model.addAttribute("incident", incident);
-	    */
 		return "Incident/details";
 	}
 
@@ -55,11 +57,7 @@ public class IncidentController {
 	}
 	*/
 	
-	@Autowired
-    private IncidentService incidentService;
-	
-	@Autowired
-	private AzureStorageService storageService;
+
 	
 	@PostMapping("/new")
 	public String Create(@ModelAttribute IncidentBean incident, @RequestParam("file") MultipartFile imageFile) {
@@ -76,13 +74,9 @@ public class IncidentController {
 					//now upload the file to blob storage
 					
 					LOG.info("Uploading to blob");
-					storageService.uploadFileToBlobStorageAsync(incidentID, fileName, imageFile.getContentType(),
-							imageFile.getBytes())
-							.whenComplete((a, b) -> {
-								//add a event into the queue to resize and attach to incident
-								LOG.info("Successfully uploaded file to blob storage, now adding message to queue");
-								storageService.addMessageToQueueAsync(incidentID, fileName);
-							});
+					String imageFileName = storageService.storeImage(incidentID, fileName, imageFile.getContentType(), imageFile.getBytes());
+					result.setImageUri(imageFileName);
+					incidentService.updateIncident( result);
 				}
 			} catch (Exception e) {
 				return "Incident/details";

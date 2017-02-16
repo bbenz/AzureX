@@ -24,22 +24,23 @@
 
         <h1>Outage Dashboard</h1>
 
-		<div class="row">
+		<div class="row dashboard">
 			<div th:each="incident : ${allIncidents}">
-				<div class="col-sm-4">
+				<a th:href="@{'/details/'+${incident.Id}}" class="col-sm-4">
 
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							Outage <span th:text="${incident.Id}"></span>
+							<span th:text="${incident.Title}"></span>
+							<i class="glyphicon glyphicon-camera pull-right" th:if="${incident.ImageUri}"></i>
 						</div>
 						<table class="table">
 							<tr>
-								<th>Address</th>
+								<th>Location</th>
 								<td><span th:text="${incident.Street}"></span></td>
 							</tr>
 							<tr>
 								<th>Contact</th>
-								<td><a href="tel:14174444444"><span
+								<td><a th:href="@{'tel:'+${incident.PhoneNumber}}"><span
 										th:text="${incident.FirstName}"></span> <span
 										th:text="${incident.LastName}"></span></a></td>
 							</tr>
@@ -50,7 +51,7 @@
 						</table>
 					</div>
 
-				</div>
+				</a>
 
 			</div>
 		</div>

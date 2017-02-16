@@ -1,4 +1,4 @@
-package devCamp.WebApp.models;
+package incidents;
 
 import java.io.Serializable;
 
@@ -16,12 +16,12 @@ public class IncidentBean implements Serializable{
 	 */
 	private static final long serialVersionUID = 8934737151319658838L;
 
-	@JsonProperty("id")
+	@Id 
 	private String id;
 
 	@JsonProperty("Title")
 	private String Title;
-	
+
 	@JsonProperty("Description")
 	private String Description;
 
@@ -112,9 +112,11 @@ public class IncidentBean implements Serializable{
 		this.id = id;
 	}
 
+
 	public String getTitle() {
 		return Title;
 	}
+
 
 
 	public void setTitle(String title) {

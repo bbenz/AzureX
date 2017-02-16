@@ -2,7 +2,11 @@ package devCamp.WebApp.configurations;
 
 import com.microsoft.azure.storage.CloudStorageAccount;
 import devCamp.WebApp.properties.ApplicationProperties;
-import devCamp.WebApp.properties.AzureStorageAccountProperties;
+import devCamp.WebApp.properties.ImageStorageProperties;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +35,7 @@ import java.security.InvalidKeyException;
 @Configuration
 @EnableConfigurationProperties(value = {
         ApplicationProperties.class,
-        AzureStorageAccountProperties.class
+        ImageStorageProperties.class
 })
 @EnableCaching
 @ComponentScan
@@ -39,7 +43,7 @@ public class ApplicationConfig {
     private static final Logger LOG = LoggerFactory.getLogger(ApplicationConfig.class);
 
     @Autowired
-    private AzureStorageAccountProperties azureStorageAccountProperties;
+    private ImageStorageProperties azureStorageAccountProperties;
 
     @PostConstruct
     protected void postConstruct() throws IOException {
@@ -50,20 +54,15 @@ public class ApplicationConfig {
     @Autowired
     private ApplicationProperties applicationProperties;
 
-    @Bean
-    public CloudStorageAccount getStorageAccount() throws InvalidKeyException, URISyntaxException {
-        String cs = String.format("DefaultEndpointsProtocol=http;AccountName=%s;AccountKey=%s",
-                azureStorageAccountProperties.getName(),
-                azureStorageAccountProperties.getKey());
-        return CloudStorageAccount.parse(cs);
-    }
+//    @Bean
+//    public CloudStorageAccount getStorageAccount() throws InvalidKeyException, URISyntaxException {
+//        String cs = String.format("DefaultEndpointsProtocol=http;AccountName=%s;AccountKey=%s",
+//                azureStorageAccountProperties.getName(),
+//                azureStorageAccountProperties.getKey());
+//        return CloudStorageAccount.parse(cs);
+//    }
 
-    @Bean
-    RestTemplate getRestTemplate(){
-        //create/configure REST template class here and autowire where needed
-        final RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
-        return restTemplate;
-    }
+
+    
+    
 }
