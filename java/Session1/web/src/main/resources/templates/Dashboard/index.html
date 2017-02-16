@@ -40,9 +40,10 @@
 							</tr>
 							<tr>
 								<th>Contact</th>
-								<td><a th:href="@{'tel:'+${incident.PhoneNumber}}"><span
-										th:text="${incident.FirstName}"></span> <span
-										th:text="${incident.LastName}"></span></a></td>
+								<td><a th:href="@{'tel:'+${incident.PhoneNumber}}">
+								<span th:text="${incident.FirstName}"></span> 
+								<span th:text="${incident.LastName}"></span>
+								</a></td>
 							</tr>
 							<tr>
 								<th>Reported</th>
@@ -55,7 +56,23 @@
 
 			</div>
 		</div>
+		<!-- Pagination controls -->
+		<div class="text-center">
 
+			<a class="btn btn-primary btn-large" th:href="@{'./dashboard?page='+${pageInfo.number-1}}" th:if="${pageInfo.number &gt; 0}">
+				
+					<i class="glyphicon glyphicon-chevron-left">
+					</i>
+					<span>Previous</span>
+			</a>
+
+			<a class="btn btn-primary btn-large" th:href="@{'./dashboard?page='+${pageInfo.number+1}}" th:if="${pageInfo.number &lt; pageInfo.totalPages -1}">
+				<span>Next</span>
+					<i class="glyphicon glyphicon-chevron-right">
+					</i>
+			</a>
+			
+		</div>
 	</div>
 
     <!-- JavaScript -->

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpEntity;
@@ -45,6 +46,17 @@ public class IncidentServiceImpl implements IncidentService {
         ArrayList<IncidentBean> beanList= new ArrayList<IncidentBean>(beanCol);
         return beanList;
     }
+ 
+    @Override
+    public PagedResources<IncidentBean> getIncidentsPaged(int page,int pagesize) {
+        LOG.info("Performing get {} web service", applicationProperties.getIncidentApiUrl() +"/incidents");
+        final String restUri = applicationProperties.getIncidentApiUrl() +"/incidents?page="+page+"&size="+pagesize;
+        ResponseEntity<PagedResources<IncidentBean>> response = restTemplate.exchange(restUri, HttpMethod.GET, null,
+                new ParameterizedTypeReference<PagedResources<IncidentBean>>() {});
+//        LOG.info("Total Incidents {}", response.getBody().size());
+        PagedResources<IncidentBean> beanResources = response.getBody();
+        return beanResources;
+    }    
     
     @Override
     public IncidentBean createIncident(IncidentBean incident) {

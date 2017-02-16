@@ -8,10 +8,12 @@ import devCamp.WebApp.services.IncidentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.PagedResources;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 //import devCamp.WebApp.IncidentAPIClient.IncidentService;
 //import devCamp.WebApp.IncidentAPIClient.IncidentService;
@@ -21,32 +23,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DashboardController {
 	private static final Logger LOG = LoggerFactory.getLogger(DashboardController.class);
 
-/*
-	@RequestMapping("/dashboard")
-	public String dashboard(Model model) {
-		
-		ArrayList<IncidentBean> theList = new ArrayList<>();
-		for (int i = 1;i<=3;++i){
-			IncidentBean bean = new IncidentBean();
-			bean.setId("12345");
-			bean.setStreet("123 Main St.");
-			bean.setFirstName("Jane");
-			bean.setLastName("Doe");
-			bean.setCreated("1/01/2016");
-			theList.add(bean);
-		}				
-
-		model.addAttribute("allIncidents", theList);
-		return "Dashboard/index";
-	}
-*/
 	@Autowired
 	IncidentService service;
 
 	@RequestMapping("/dashboard")
-	public String dashboard(Model model) {
-		List<IncidentBean> list = service.getAllIncidents();
-		model.addAttribute("allIncidents", list);
+	public String dashboard(@RequestParam(defaultValue = "0") int page,Model model) {
+		
+		PagedResources<IncidentBean> incidents = service.getIncidentsPaged(page,9);
+		model.addAttribute("allIncidents", incidents.getContent());
+		model.addAttribute("pageInfo", incidents.getMetadata());		
 		return "Dashboard/index";
 	}	
 }
