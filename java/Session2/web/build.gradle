@@ -31,10 +31,10 @@ configurations {
 }
 
 dependencies {
-compile ('org.apache.httpcomponents:httpclient')
-compile ('org.apache.httpcomponents:httpcore')
-compile ('org.apache.httpcomponents:httpmime')
-compile('org.springframework.boot:spring-boot-starter-web')
+	compile ('org.apache.httpcomponents:httpclient')
+	compile ('org.apache.httpcomponents:httpcore')
+	compile ('org.apache.httpcomponents:httpmime')
+	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-devtools')

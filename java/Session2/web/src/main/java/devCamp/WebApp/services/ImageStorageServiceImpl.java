@@ -41,52 +41,11 @@ public class ImageStorageServiceImpl implements ImageStorageService {
             }
         return imageFileName;
     }
-    
-    
-
-    @Async
-    @Override
-    public CompletableFuture<String> storeImageAsync(String IncidentId, String fileName,
-                                                                  String contentType, byte[] fileBuffer) {
-        CompletableFuture<String> cf = new CompletableFuture<>();
-        CompletableFuture.runAsync(() ->{
-            try {
-            	String imageFileName = getIncidentImageFilename(IncidentId, fileName);
-            	String completeFileName = String.format("%s/%s",imageStorageProperties.getStorageLocation(),imageFileName);
-            	FileOutputStream fos = new FileOutputStream(completeFileName);
-            	fos.write(fileBuffer);
-            	fos.close();
-                //return result
-                cf.complete(imageFileName);
-            } catch ( IOException e) {
-                // TODO Auto-generated catch block
-                LOG.error("storeImageAsync - error {}", e);
-                cf.completeExceptionally(e);
-            }
-        });
-        return cf;
-    }
-    
-    public InputStream getImage(String id){
-    	FileInputStream fis = null;
-    	try {
-	    	String completeFileName = String.format("%s/%s",imageStorageProperties.getStorageLocation(),id);
-	    	
-			fis = new FileInputStream(completeFileName);
-	} catch (FileNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-		return fis;
-    }
-    
-    public byte[] getImageAsArray(String id) {
+        
+    public byte[] getImageAsArray(String imagefilename) {
     	byte[] b = null;
 		try {
-	    	String completeFileName = String.format("%s/%s",imageStorageProperties.getStorageLocation(),id);
+	    	String completeFileName = String.format("%s/%s",imageStorageProperties.getStorageLocation(),imagefilename);
 	    	FileInputStream fis;
 			fis = new FileInputStream(completeFileName);
 			b = IOUtils.toByteArray(fis);

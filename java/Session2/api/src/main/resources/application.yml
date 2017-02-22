@@ -1,0 +1,10 @@
+server:
+  port: 9000
+
+management:
+  port: 9001
+  address: 127.0.0.1
+  
+database:
+  mongo:
+    connectString: mongodb://azurex-docdb-brruc667km5t4:B3plzU27ikcFLKdh7QS9se3gBl36gkXhzIpflp4tBsl3o5UI80jd8I1aaNinEAk8PQFcwnp0knITUQTU5bSNWw==@azurex-docdb-brruc667km5t4.documents.azure.com:10250/?ssl=true&sslInvalidHostNameAllowed=true
