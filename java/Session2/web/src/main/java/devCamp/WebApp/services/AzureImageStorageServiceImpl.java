@@ -1,46 +1,25 @@
 package devCamp.WebApp.services;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.concurrent.CompletableFuture;
+import java.net.URISyntaxException;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
-import devCamp.WebApp.properties.AzureStorageAccountProperties;
-
 
 import com.microsoft.azure.storage.CloudStorageAccount;
 import com.microsoft.azure.storage.StorageException;
-import com.microsoft.azure.storage.blob.*;
-import com.microsoft.azure.storage.queue.CloudQueue;
-import com.microsoft.azure.storage.queue.CloudQueueClient;
-import com.microsoft.azure.storage.queue.CloudQueueMessage;
-import org.apache.commons.io.FilenameUtils;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+import com.microsoft.azure.storage.blob.BlobContainerPermissions;
+import com.microsoft.azure.storage.blob.BlobContainerPublicAccessType;
+import com.microsoft.azure.storage.blob.CloudBlobClient;
+import com.microsoft.azure.storage.blob.CloudBlobContainer;
+import com.microsoft.azure.storage.blob.CloudBlockBlob;
 
-import javax.ws.rs.core.UriBuilder;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.concurrent.CompletableFuture;
+import devCamp.WebApp.properties.AzureStorageAccountProperties;
 
 @Primary
 @Service
@@ -51,6 +30,7 @@ public class AzureImageStorageServiceImpl implements ImageStorageService {
     private AzureStorageAccountProperties azureStorageProperties;
         
     private byte[] downloadImage(CloudBlockBlob imgBlob){
+    	LOG.debug("downloadImage");
     	ByteArrayOutputStream bos = new ByteArrayOutputStream();
     	try {
 			imgBlob.download(bos);

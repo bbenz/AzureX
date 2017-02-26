@@ -27,6 +27,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 
       @Bean
       public HttpClient httpClient() {
+    	  log.debug("creating HttpClient");
         PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
 
         // Get the poolMaxTotal value from our application[-?].yml or default to 10 if not explicitly set

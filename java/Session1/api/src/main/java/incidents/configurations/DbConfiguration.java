@@ -9,11 +9,11 @@ import com.mongodb.Mongo;
 
 @Configuration
 public class DbConfiguration {
-	  /*
-	   * Use the standard Mongo driver API to create a com.mongodb.Mongo instance.
-	   */
+	/*
+	 * Use the standard Mongo driver API to create a com.mongodb.Mongo instance.
+	 */
 	@SuppressWarnings("deprecation")
 	public @Bean Mongo mongo() throws UnknownHostException {
-	       return new Mongo("localhost");
-	   }
+		return new Mongo("localhost");
+	}
 }

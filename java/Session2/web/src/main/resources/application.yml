@@ -11,6 +11,12 @@ azure:
 logging:
   level: info
 
+cache:
+  redisHost:
+  redisPort:
+  primaryKey:
+  redisSslPort:
+  
 spring:
   http:
     multipart:
