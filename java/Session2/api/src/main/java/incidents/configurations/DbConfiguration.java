@@ -16,6 +16,9 @@ public class DbConfiguration {
 
 	public @Bean MongoClient mongo() throws UnknownHostException {
 		String connectString = dbConfigProperties.getConnectString();
+		if (connectString.equals("${DB_CONNECT_STRING}")){
+			connectString = "mongodb://localhost";
+		}
 		return new MongoClient(new MongoClientURI(connectString));
 	}
 }
