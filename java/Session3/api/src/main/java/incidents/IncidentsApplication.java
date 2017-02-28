@@ -9,8 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class IncidentsApplication {
 
 	private static final Log log = LogFactory.getLog(IncidentsApplication.class);
-	
+
 	public static void main(String[] args) {
+		log.debug("Incidents Application Main");
 		SpringApplication.run(IncidentsApplication.class, args);
 	}
 

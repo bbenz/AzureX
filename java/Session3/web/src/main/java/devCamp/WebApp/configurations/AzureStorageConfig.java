@@ -18,22 +18,22 @@ import devCamp.WebApp.properties.AzureStorageAccountProperties;
 
 @Configuration
 public class AzureStorageConfig {
-    private static final Logger LOG = LoggerFactory.getLogger(ApplicationConfig.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ApplicationConfig.class);
 
-    @Autowired
-    private AzureStorageAccountProperties azureStorageProperties;
+	@Autowired
+	private AzureStorageAccountProperties azureStorageProperties;
 
-    @PostConstruct
-    protected void postConstruct() throws IOException {
-        LOG.info(azureStorageProperties.toString());
-    }
-    
-    @Bean
-    public CloudStorageAccount getStorageAccount() throws InvalidKeyException, URISyntaxException {
-        String cs = String.format("DefaultEndpointsProtocol=http;AccountName=%s;AccountKey=%s",
-                azureStorageProperties.getName(),
-                azureStorageProperties.getKey());
-        return CloudStorageAccount.parse(cs);
-    }
+	@PostConstruct
+	protected void postConstruct() throws IOException {
+		LOG.info(azureStorageProperties.toString());
+	}
+
+	@Bean
+	public CloudStorageAccount getStorageAccount() throws InvalidKeyException, URISyntaxException {
+		String cs = String.format("DefaultEndpointsProtocol=http;AccountName=%s;AccountKey=%s",
+				azureStorageProperties.getName(),
+				azureStorageProperties.getKey());
+		return CloudStorageAccount.parse(cs);
+	}
 
 }
